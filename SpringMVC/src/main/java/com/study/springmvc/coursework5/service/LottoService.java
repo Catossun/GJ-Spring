@@ -47,6 +47,7 @@ public class LottoService {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                // Collect sorted entries and map them to LinkedHashMap to maintain order
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (aLong, aLong2) -> aLong2, LinkedHashMap::new));
         return times;
     }
