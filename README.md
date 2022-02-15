@@ -40,3 +40,17 @@ Point code:
 [OrderLogAspect.java](https://github.com/Catossun/GJ-Spring/blob/coursework4/src/main/java/com/study/springcore/coursework4/aop/OrderLogAspect.java)
 ,
 [OrderLogDaoImpl.java](https://github.com/Catossun/GJ-Spring/blob/coursework4/src/main/java/com/study/springcore/coursework4/dao/OrderLogDaoImpl.java)
+
+### [Coursework 5](https://github.com/Catossun/GJ-Spring/tree/coursework5)
+
+統計每個號碼出現的次數，並以次數由大到小排列
+E.g., 9:(19), 5:(6), 13(1)...
+
+Demo: [Lotto](https://gj-springmvc.azurewebsites.net/mvc/coursework5/lotto/)
+
+Point code:
+[LottoService](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/java/com/study/springmvc/coursework5/service/LottoService.java)
+,
+[LottoController](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/java/com/study/springmvc/coursework5/controller/LottoController.java)
+,
+[show_lotto.jsp](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/webapp/WEB-INF/views/coursework5/show_lotto.jsp)
