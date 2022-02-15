@@ -43,7 +43,7 @@ Point code:
 
 ### [Coursework 5](https://github.com/Catossun/GJ-Spring/tree/coursework5)
 
-統計每個號碼出現的次數，並以次數由大到小排列
+統計每個號碼出現的次數，並依次數由大到小排列
 E.g., 9:(19), 5:(6), 13(1)...
 
 Demo: [Lotto](https://gj-springmvc.azurewebsites.net/mvc/coursework5/lotto/)
