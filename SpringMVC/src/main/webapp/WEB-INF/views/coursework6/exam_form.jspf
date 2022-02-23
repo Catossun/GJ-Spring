@@ -1,0 +1,36 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spform" uri="http://www.springframework.org/tags/form" %>
+
+<script type="text/javascript">
+
+</script>
+
+<spform:form class="pure-form"
+             method="post"
+             action="${pageContext.request.contextPath}/mvc/coursework6/exam/"
+             modelAttribute="exam">
+    <fieldset>
+        <legend>Exam Form</legend>
+        <input type="hidden" id="_method" name="_method" value="${_method}">
+        學號：<spform:input path="studentId"/><p/>
+        科目：<spform:select path="examId">
+        <spform:option value="">請選擇</spform:option>
+        <spform:options items="${examSubjects}" itemValue="id" itemLabel="name"/>
+    </spform:select><p/>
+        日期：<spform:input path="examDate" type="date"/><p/>
+        時段：<spform:checkboxes items="${examSlots}" itemLabel="displayValue" path="examSlots"/> <p/>
+        繳費：<spform:radiobuttons items="${examPayStatus}" itemLabel="displayValue" path="examPay"/> <p/>
+        備註：<spform:textarea id="examNote" path="examNote"/><p/>
+        <button type="submit" class="pure-button pure-button-primary" ${_method == 'POST' ? '': 'disabled'}>
+            新增
+        </button>
+        <button type="button" class="pure-button pure-button-primary" ${_method == 'PUT' ? '': 'disabled'}
+                onclick="updateExam(${index})">
+            修改
+        </button>
+        <button type="button" class="pure-button pure-button-primary" ${_method == 'PUT' ? '': 'disabled'}
+                onclick="deleteExam(${index})">
+            刪除
+        </button>
+    </fieldset>
+</spform:form>

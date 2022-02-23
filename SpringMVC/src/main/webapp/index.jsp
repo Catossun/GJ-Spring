@@ -24,6 +24,14 @@
             <a href="${pageContext.request.contextPath}/mvc/coursework5/lotto/">Lotto</a>
         </td>
     </tr>
+    <tr>
+        <td>
+            6
+        </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/mvc/coursework6/exam/">Exam Form</a>
+        </td>
+    </tr>
     </tbody>
 </table>
 <br/>
