@@ -17,27 +17,26 @@ public class ExamController {
     @Autowired
     ExamService examService;
 
-    @ModelAttribute
-    public void prepareModel(Model model) {
+    private void prepareModel(Model model) {
         model.addAttribute("examPayStatus", ExamPayStatus.values());
         model.addAttribute("examSlots", ExamSlot.values());
+        model.addAttribute("exams", examService.query());
+        model.addAttribute("examSubjects", examService.queryExamSubjects());
     }
 
     @GetMapping("/")
     public String index(@ModelAttribute Exam exam, Model model) {
+        prepareModel(model);
         model.addAttribute("_method", "POST");
-        model.addAttribute("exams", examService.query());
-        model.addAttribute("examSubjects", examService.queryExamSubjects());
         return "coursework6/exam";
     }
 
     @GetMapping("/{index}")
     public String query(@PathVariable int index, Model model) {
+        prepareModel(model);
         Optional<Object> exam = examService.get(index);
         if (exam.isPresent()) {
             model.addAttribute("_method", "PUT");
-            model.addAttribute("exams", examService.query());
-            model.addAttribute("examSubjects", examService.queryExamSubjects());
             model.addAttribute("exam", exam);
             return "coursework6/exam";
         }
