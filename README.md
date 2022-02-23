@@ -54,3 +54,20 @@ Point code:
 [LottoController](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/java/com/study/springmvc/coursework5/controller/LottoController.java)
 ,
 [show_lotto.jsp](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/webapp/WEB-INF/views/coursework5/show_lotto.jsp)
+
+### [Coursework 6](https://github.com/Catossun/GJ-Spring/tree/coursework6)
+
+將 Exam Form 裡面的 `<spform:checkbox>` 改成使用 `<spform:checkboxes>`，以及 `<spform:radiobutton>` 改成使用 `<spform:radiobuttons>`。
+
+Demo: [Exam Form](https://gj-springmvc.azurewebsites.net/mvc/coursework6/exam/)
+
+Point code:
+[ExamController.java](./SpringMVC/src/main/java/com/study/springmvc/coursework6/controller/ExamController.java)
+,
+[Exam.java](./SpringMVC/src/main/java/com/study/springmvc/coursework6/entity/Exam.java)
+,
+[ExamSlot.java](./SpringMVC/src/main/java/com/study/springmvc/coursework6/entity/ExamSlot.java)
+,
+[ExamPayStatus.java](./SpringMVC/src/main/java/com/study/springmvc/coursework6/entity/ExamPayStatus.java)
+,
+[exam_form.jsp](./SpringMVC/src/main/webapp/WEB-INF/views/coursework6/exam_form.jspf)
