@@ -7,7 +7,7 @@
 請使用 Java 8 stream 進行資料分析並取得 mary 的老師有誰? (印出 name)
 
 Point code:
-[Test1.java](https://github.com/Catossun/GJ-Spring/blob/coursework1/src/test/java/com/study/springcore/coursework1/Test1.java)
+[Test1.java](./SpringCore/src/test/java/com/study/springcore/coursework1/Test1.java)
 
 ### [Coursework 2](https://github.com/Catossun/GJ-Spring/tree/coursework2)
 
@@ -15,18 +15,18 @@ Point code:
 2. 完成 PersonSystem.java 選項3 ~ 7資料分析與處理
 
 Point code:
-[JsonDB.java](https://github.com/Catossun/GJ-Spring/blob/coursework2/src/main/java/com/study/springcore/coursework2/JsonDB.java)
+[JsonDB.java](./SpringCore/src/main/java/com/study/springcore/coursework2/JsonDB.java)
 ,
-[PersonSystem.java](https://github.com/Catossun/GJ-Spring/blob/coursework2/src/main/java/com/study/springcore/coursework2/PersonSystem.java)
+[PersonSystem.java](./SpringCore/src/main/java/com/study/springcore/coursework2/PersonSystem.java)
 
 ### [Coursework 3](https://github.com/Catossun/GJ-Spring/tree/coursework3)
 
 將每次調用 查詢 queryAll() 方法的調用時間 Log 紀錄下來(透過切面導向程式設計 AOP)
 
 Point code:
-[QueryLogDao.java](https://github.com/Catossun/GJ-Spring/blob/coursework3/src/main/java/com/study/springcore/coursework3/template/QueryLogDao.java)
+[QueryLogDao.java](./SpringCore/src/main/java/com/study/springcore/coursework3/template/QueryLogDao.java)
 ,
-[QueryLogger.java](https://github.com/Catossun/GJ-Spring/blob/coursework3/src/main/java/com/study/springcore/coursework3/aop/QueryLogger.java)
+[QueryLogger.java](./SpringCore/src/main/java/com/study/springcore/coursework3/aop/QueryLogger.java)
 
 ### [Coursework 4](https://github.com/Catossun/GJ-Spring/tree/coursework4)
 
@@ -37,9 +37,9 @@ Point code:
 > Vincent在2020/01/23 PM 2:10:51 買了Java書4本共600元
 
 Point code:
-[OrderLogAspect.java](https://github.com/Catossun/GJ-Spring/blob/coursework4/src/main/java/com/study/springcore/coursework4/aop/OrderLogAspect.java)
+[OrderLogAspect.java](./SpringCore/src/main/java/com/study/springcore/coursework4/aop/OrderLogAspect.java)
 ,
-[OrderLogDaoImpl.java](https://github.com/Catossun/GJ-Spring/blob/coursework4/src/main/java/com/study/springcore/coursework4/dao/OrderLogDaoImpl.java)
+[OrderLogDaoImpl.java](./SpringCore/src/main/java/com/study/springcore/coursework4/dao/OrderLogDaoImpl.java)
 
 ### [Coursework 5](https://github.com/Catossun/GJ-Spring/tree/coursework5)
 
@@ -49,11 +49,11 @@ E.g., 9:(19), 5:(6), 13(1)...
 Demo: [Lotto](https://gj-springmvc.azurewebsites.net/mvc/coursework5/lotto/)
 
 Point code:
-[LottoService](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/java/com/study/springmvc/coursework5/service/LottoService.java)
+[LottoService](./SpringMVC/src/main/java/com/study/springmvc/coursework5/service/LottoService.java)
 ,
-[LottoController](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/java/com/study/springmvc/coursework5/controller/LottoController.java)
+[LottoController](./SpringMVC/src/main/java/com/study/springmvc/coursework5/controller/LottoController.java)
 ,
-[show_lotto.jsp](https://github.com/Catossun/GJ-Spring/blob/coursework5/SpringMVC/src/main/webapp/WEB-INF/views/coursework5/show_lotto.jsp)
+[show_lotto.jsp](./SpringMVC/src/main/webapp/WEB-INF/views/coursework5/show_lotto.jsp)
 
 ### [Coursework 6](https://github.com/Catossun/GJ-Spring/tree/coursework6)
 
