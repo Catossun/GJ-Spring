@@ -71,3 +71,23 @@ Point code:
 [ExamPayStatus.java](./SpringMVC/src/main/java/com/study/springmvc/coursework6/entity/ExamPayStatus.java)
 ,
 [exam_form.jsp](./SpringMVC/src/main/webapp/WEB-INF/views/coursework6/exam_form.jspf)
+
+### [Coursework 7](https://github.com/Catossun/GJ-Spring/tree/coursework7)
+
+1. 完成 Fund Stock Form
+2. 計算基金價值
+
+Demo: [FundStock Form](https://gj-springmvc.azurewebsites.net/mvc/coursework7/fundstock/page/-1)
+,
+[Fund Form](https://gj-springmvc.azurewebsites.net/html/coursework7/fund.html)
+
+Point code:
+[FundStockController.java](./SpringMVC/src/main/java/com/study/springmvc/coursework7/controller/FundStockController.java)
+,
+[fundstock.jsp](./SpringMVC/src/main/webapp/WEB-INF/views/coursework7/fundstock.jsp)
+,
+[FundController.java](./SpringMVC/src/main/java/com/study/springmvc/coursework7/controller/FundController.java)
+,
+[fund.html](./SpringMVC/src/main/webapp/html/coursework7/fund.html)
+,
+[PriceController.java](./SpringMVC/src/main/java/com/study/springmvc/coursework7/controller/PriceController.java)
