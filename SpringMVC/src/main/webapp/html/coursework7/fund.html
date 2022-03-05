@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+          rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Fund Form（Ajax）</title>
+    <style type="text/css">
+        .error {
+            color: #FF0000
+        }
+
+        .mylink {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+    <script src="../../js/jquery.min.js" type="text/javascript"></script>
+    <script src="../../js/jquery.validate.min.js"></script>
+    <script src="../../js/localization/messages_zh_TW.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <script src="../../js/util.js"></script>
+    <script>
+        let chartData = []
+
+        $(document).ready(() => {
+            google.charts.load('current', {'packages': ['corechart']});
+            console.log("Load ready!")
+            clearForm()
+            btnAttr(0)
+            listFunds()
+            loadPageNum()
+
+            $("#add").on("click", () => {
+                addOrUpdate("POST")
+            })
+            $("#upt").on("click", () => {
+                addOrUpdate("PUT")
+            })
+            $("#del").on("click", () => {
+                deleteData()
+            })
+            $("#rst").on("click", () => {
+                clearForm()
+            })
+
+            // Set onclick listener on each tr element in the table
+            $("#myTable").on("click", "tr", function () {
+                let fid = getItem(this, 0)
+                console.log(fid)
+                loadDataToForm(fid);
+            })
+
+            $("#myForm").validate({
+                onsubmit: false,
+                errorElement: "p",
+                rules: {
+                    fname: { // Set the rule on the input tag which the name is "fname"
+                        required: true,
+                        rangelength: [2, 50],
+                    }
+                },
+                messages: { // Customize error message
+                    fname: {
+                        required: "請輸入基金名稱",
+                        rangelength: "基金名稱長度需介於 {0}~{1} 之間"
+                    }
+                }
+            })
+        })
+
+        function loadPageNum() {
+            let path = "../../mvc/coursework7/fund/page/pagecount";
+            let callback = (pageCount) => {
+                console.log(pageCount)
+                let html = "<a href='javascript:void(0)' onclick='listFunds({0})'>{0}</a> "
+                for (let i = 0; i < pageCount; i++) {
+                    let a = String.format(html, i + 1)
+                    $("#pageNum").append(a)
+                }
+            }
+            $.get(path, callback)
+        }
+
+        function addOrUpdate(method) {
+            // Validate form data
+            let valid = $("#myForm").valid();
+            console.log(valid)
+            if (!valid) return
+            // Transform form data to json string
+            let formObj = $("#myForm").serializeObject();
+            let jsonStr = JSON.stringify(formObj)
+            console.log(jsonStr)
+            // Send data
+            $.ajax({
+                url: "../../mvc/coursework7/fund/",
+                type: method,
+                contentType: "application/json;charset=utf-8",
+                data: jsonStr,
+                success: (resp) => {
+                    console.log(resp)
+                    // Update list
+                    listFunds()
+                    clearForm()
+                    btnAttr(0)
+                },
+                error: (resp) => {
+                    console.log(resp)
+                }
+            })
+        }
+
+        function deleteData() {
+            let fid = $("#myForm #fid").val().trim()
+            console.log(fid)
+            let path = "../../mvc/coursework7/fund/" + fid;
+            $.ajax({
+                url: path,
+                method: "DELETE",
+                success: (resp) => {
+                    console.log(resp)
+                    listFunds()
+                    clearForm()
+                },
+                error: (resp) => {
+                    console.log(resp)
+                    alert(resp.status)
+                }
+            })
+        }
+
+        function getItem(elem, colIdx) {
+            console.log($(elem))
+            let data = $(elem).find("td").eq(colIdx).text().trim();
+            return data;
+        }
+
+        function clearForm() {
+            $("#myForm").trigger("reset")
+            btnAttr(0)
+        }
+
+        function loadDataToForm(fid) {
+            let path = "../../mvc/coursework7/fund/" + fid;
+            let callback = (data, status) => {
+                console.log(data)
+                console.log(status)
+                // Inject data into the form
+                $("#myForm").find("#fid").val(data.fid);
+                $("#myForm").find("#fname").val(data.fname);
+                // Change buttons status
+                if (data.fundStocks.length > 0) {
+                    btnAttr(1)
+                } else {
+                    btnAttr(2)
+                }
+            }
+            $.get(path, callback);
+        }
+
+        async function listFunds(pageNumber) {
+            let path = "../../mvc/coursework7/fund/";
+            if (pageNumber)
+                path += "page/" + pageNumber;
+            let data = await $.get(path)
+            console.log(data);
+            console.log(status)
+
+            // Clear old data
+            $("#myTable > tbody > tr").remove();
+            chartData = [["Fund", "Value"]]
+            // Put data into myTable
+            for (let i in data) {
+                let item = data[i]
+                let html = "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>"
+                let symbolStr = ""
+                let fundValue = 0
+                if (item.fundStocks == null) {
+                    symbolStr = "None"
+                } else {
+                    let pricePath = "../../mvc/coursework7/price/latest/";
+                    for (let i in item.fundStocks) {
+                        let stock = item.fundStocks[i]
+                        let stockData = await $.get(pricePath + stock.symbol).promise()
+                        fundValue += stockData.price * stock.share
+                        symbolStr += stock.symbol
+                        if (i < item.fundStocks.length - 1) symbolStr += ", "
+                    }
+                }
+
+                chartData.push([item.fname, fundValue])
+                $("#myTable").append(String.format(html, item.fid, item.fname, item.createtime, symbolStr, fundValue))
+            }
+
+            drawChart(0, chartData)
+        }
+
+        function btnAttr(status) {
+            $("#myForm #add").attr('disabled', status !== 0);
+            $("#myForm #upt").attr('disabled', status === 0);
+            $("#myForm #del").attr('disabled', status === 0 || status === 1);
+        }
+
+        function redrawChart(type){
+            drawChart(type, chartData)
+        }
+
+        function drawChart(type, data) {
+            // console.log(data)
+            let table = google.visualization.arrayToDataTable(data)
+            let chart = new google.visualization.ColumnChart(document.getElementById('fundChart'));
+            switch (type) {
+                case 1:
+                    chart = new google.visualization.PieChart(document.getElementById('fundChart'));
+                    break;
+                case 2:
+                    chart = new google.visualization.LineChart(document.getElementById('fundChart'));
+                    break;
+                case 3:
+                    chart = new google.visualization.BarChart(document.getElementById('fundChart'));
+                    break;
+            }
+            chart.draw(table)
+        }
+    </script>
+</head>
+<body style="padding: 15px">
+<table>
+    <tr>
+        <!-- Fund Form -->
+        <td valign="top">
+            <form class="pure-form" id="myForm">
+                <fieldset>
+                    <legend>
+                        <a href="../../mvc/coursework7/fundstock/">Fundstock Form</a> | Fund
+                        Form（Ajax）
+                    </legend>
+                    基金序號：
+                    <input id="fid" name="fid" readonly type="text"/>
+                    <p/>
+                    基金名稱： <input id="fname" name="fname" required type="text"/>
+                    <p/>
+                    <button class="pure-button pure-button-primary" id="add"
+                            type="button">新增
+                    </button>
+                    <button class="pure-button pure-button-primary" disabled
+                            id="upt" type="button">修改
+                    </button>
+                    <button class="pure-button pure-button-primary" disabled
+                            id="del" type="button">刪除
+                    </button>
+                    <button class="pure-button pure-button-primary" id="rst"
+                            type="button">重置
+                    </button>
+                    <p/>
+                </fieldset>
+            </form>
+        </td>
+        <!-- Fundstock List -->
+        <td valign="top">
+            <form class="pure-form">
+                <fieldset>
+                    <legend> Fund List |
+                        <a href="javascript:void(0)" onclick="listFunds()">All</a> |
+                        <div id="pageNum"></div>
+                    </legend>
+                    <table class="pure-table pure-table-bordered" id="myTable">
+                        <thead>
+                        <tr>
+                            <th>基金序號</th>
+                            <th>基金名稱</th>
+                            <th>建立日期</th>
+                            <th>成分股</th>
+                            <th>基金規模</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <fieldset>
+                <legend>Fund Chart
+                    <a href="javascript:void(0)" onclick="redrawChart(0)">Column</a>
+                    <a href="javascript:void(0)" onclick="redrawChart(1)">Pie</a>
+                    <a href="javascript:void(0)" onclick="redrawChart(2)">Line</a>
+                    <a href="javascript:void(0)" onclick="redrawChart(3)">Bar</a>
+                </legend>
+                <div id="fundChart" style="height: 500px"></div>
+            </fieldset>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

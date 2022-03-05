@@ -32,6 +32,15 @@
             <a href="${pageContext.request.contextPath}/mvc/coursework6/exam/">Exam Form</a>
         </td>
     </tr>
+    <tr>
+        <td>
+            7
+        </td>
+        <td>
+            <a href="${pageContext.request.contextPath}/mvc/coursework7/fundstock/">Fund Stock</a>
+            <a href="${pageContext.request.contextPath}/html/coursework7/fund.html">Fund</a>
+        </td>
+    </tr>
     </tbody>
 </table>
 <br/>
